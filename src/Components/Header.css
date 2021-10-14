@@ -1,0 +1,30 @@
+.header {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    text-align: 'center';
+    padding: 0.001em;
+    margin-bottom: 0.001em;
+    background-color: rgb(123, 226, 209);
+    color: #fff;
+  }
+
+.button {
+    background-color: #90ec78; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+  }
+
+.button:hover{
+    color:#58f01c;
+    background-color:#39ecd4;
+}
