@@ -1,0 +1,27 @@
+.background{
+    background-color: rgb(190, 255, 217);
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    align-items: center;
+}
+
+.title {
+    width: 500px;
+    height: 100px;
+    background-color: rgb(111, 252, 118);
+    position: absolute;
+    border-radius: 50px;
+    top: 15%;
+    left: 32%;
+    text-align: center;
+}
+.buttonbox{
+    position: absolute;
+    border-radius: 20px;
+    top: 35%;
+    left: 43%;
+    text-align: center;
+}
