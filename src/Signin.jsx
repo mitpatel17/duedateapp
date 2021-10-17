@@ -4,24 +4,44 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import "./Components/Signinstyle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
+import { doc, getDoc, setDoc, addDoc} from "firebase/firestore";
+import {db} from "./Firebase/firebase"
+
+
 
 const Signin = () => {
 
     const auth = getAuth();
     const provider = new GoogleAuthProvider(app);
 
-
     const signIn = () => {
 
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log(result)
+                console.log(result.user.uid)
+                getData(result)
             })
             .catch((error) => {
                 console.log(error)
             })
     }
 
+    const getData =  async(result) => {
+        const docRef = doc(db, "task", result.user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+        } else {
+        // doc.data() will be undefined in this case
+            console.log("No such document!");
+            setDoc(docRef,{
+                date1: {
+                    task: "Pizza"
+                  }
+            })
+        }
+    }
 
     return (
 
