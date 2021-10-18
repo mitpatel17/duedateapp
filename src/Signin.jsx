@@ -27,7 +27,6 @@ const Signin = () => {
     }
 
     const getData =  async(e) => {
-        e.reventDefault();
         const docRef = doc(db, "task", e.user.uid);
         const docSnap = await getDoc(docRef);
 
