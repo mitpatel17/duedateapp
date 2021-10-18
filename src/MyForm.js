@@ -22,6 +22,7 @@ function MyForm() {
   });
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     alert(`Submitting task ${task}`)
     const taskobj = { task };
     const taskdate = { date };
