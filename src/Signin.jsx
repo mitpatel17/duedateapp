@@ -4,7 +4,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import "./Components/Signinstyle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
-import { doc, getDoc, setDoc, addDoc} from "firebase/firestore";
+import { doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "./Firebase/firebase"
 
 
@@ -35,11 +35,10 @@ const Signin = () => {
         } else {
         // doc.data() will be undefined in this case
             console.log("No such document!");
-            setDoc(docRef,{
-                date1: {
-                    task: "Pizza"
-                  }
-            })
+            
+            const docData = {dates: [], task: []};
+
+            setDoc(docRef, docData);
         }
     }
 

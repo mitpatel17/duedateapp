@@ -1,17 +1,38 @@
 import React, { useState } from "react";
-import "./Myform.css";
+import "./Components/Myform.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import app from "./Firebase/firebase.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { db } from "./Firebase/firebase.js";
 
 function MyForm() {
   const [task, setTask] = useState("");
   const [date, setDate] = useState(new Date());
+  const [userid, setUserID] = useState("");
 
-  const handleSubmit = (e) => {
+  const auth = getAuth(app);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUserID(user.uid);
+    } else {
+      console.log('no user');
+    }
+  });
+
+  const handleSubmit = async (e) => {
     alert(`Submitting task ${task}`)
     const taskobj = { task };
     const taskdate = { date };
-    console.log(taskobj, taskdate);
+
+    const docRef = doc(db, 'task', userid.toString());
+
+    await updateDoc(docRef, {
+      task: arrayUnion(taskobj), dates: arrayUnion(taskdate)
+  });
+    
+    console.log({docRef});
   }
   return (
 

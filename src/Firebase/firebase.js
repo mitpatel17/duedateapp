@@ -9,7 +9,8 @@ const firebaseConfig = {
     storageBucket: "dudedatetracker.appspot.com",
     messagingSenderId: "187474483040",
     appId: "1:187474483040:web:30e1bbca1af8d4aa55f005",
-    measurementId: "G-6HWKN6SP2F"
+    measurementId: "G-6HWKN6SP2F",
+    databaseURL: 'https://{dudedatetracker}.firebaseio.com'
 };
 
 const app = initializeApp(firebaseConfig);

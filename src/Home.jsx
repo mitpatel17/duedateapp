@@ -6,7 +6,7 @@ import { getAuth, signOut } from "firebase/auth";
 import Header from "./Components/Header";
 import { Button } from "react-bootstrap";
 import "./Components/Homestyling.css";
-import MyForm from "./Components/MyForm";
+import MyForm from "./MyForm";
 
 const Home = () => {
 
@@ -27,7 +27,7 @@ const Home = () => {
 
             <div className="signinbuttonbox">
 
-                <MyForm />
+                <MyForm/>
                 <h2>
                 </h2>
                 <h2>
