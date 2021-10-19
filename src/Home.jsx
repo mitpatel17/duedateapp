@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import "./Components/Myform.css";
@@ -7,7 +7,8 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import Header from "./Components/Header";
 import { Button } from "react-bootstrap";
 import "./Components/Homestyling.css";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, getDoc, arrayUnion } from "firebase/firestore";
+
 import { db } from "./Firebase/firebase.js";
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
     const [userid, setUserID] = useState("");
     const [task, setTask] = useState("");
     const auth = getAuth(app);
+    const [dateTasks, setDateTasks] = useState([]);
 
     const SignOut = () => {
         signOut(auth).then(() => {
@@ -46,6 +48,22 @@ const Home = () => {
         });
 
         console.log({ docRef });
+    }
+
+    const getArray = async (e) => {
+        e.preventDefault();
+        const docRef = doc(db, "task", userid.toString());
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const taskarray = [docSnap.data(),date.toDateString()];
+            console.log(taskarray);
+            setDateTasks(taskarray);
+            console.log(dateTasks)
+        }
+        else {
+            console.log("no data");
+        }
     }
 
     return (
@@ -94,6 +112,12 @@ const Home = () => {
                         <span className='bold'> Tasks due on:</span>{' '}
                         {date.toDateString()}
                     </h2>
+
+                    <form onSubmit={getArray}>
+                        <input type="submit" value="Reveal Task" />
+                    </form>
+
+
 
                 </div>
                 <h2>
