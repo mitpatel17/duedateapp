@@ -36,7 +36,7 @@ const Signin = () => {
         // doc.data() will be undefined in this case
             console.log("No such document!");
             
-            const docData = {dates: [], task: []};
+            const docData = {};
 
             setDoc(docRef, docData);
         }
