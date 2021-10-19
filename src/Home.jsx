@@ -7,7 +7,7 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import Header from "./Components/Header";
 import { Button } from "react-bootstrap";
 import "./Components/Homestyling.css";
-import { doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "./Firebase/firebase.js";
 
 const Home = () => {
@@ -65,14 +65,14 @@ const Home = () => {
 
                 <div className="box">
                     <h2>
-                    <span className='bold'> Enter task due on:</span>{' '}
-                    {date.toDateString()}
+                        <span className='bold'> Enter task due on:</span>{' '}
+                        {date.toDateString()}
                     </h2>
                     <form onSubmit={handleSubmit}>
 
-                        <h4>
+                        <h5>
                             Enter Task Here:
-                        </h4>
+                        </h5>
 
                         <input
                             type="text"
@@ -85,6 +85,16 @@ const Home = () => {
                         <input type="submit" value="Add Task" />
 
                     </form>
+                </div>
+                <h2>
+                </h2>
+
+                <div className="box">
+                    <h2>
+                        <span className='bold'> Tasks due on:</span>{' '}
+                        {date.toDateString()}
+                    </h2>
+
                 </div>
                 <h2>
                 </h2>
