@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import "./Components/Myform.css";
@@ -8,6 +8,7 @@ import Header from "./Components/Header";
 import { Button } from "react-bootstrap";
 import "./Components/Homestyling.css";
 import { doc, updateDoc, getDoc, arrayUnion } from "firebase/firestore";
+import TransformText from './Components/textresult';
 
 import { db } from "./Firebase/firebase.js";
 
@@ -17,13 +18,14 @@ const Home = () => {
     const [userid, setUserID] = useState("");
     const [task, setTask] = useState("");
     const auth = getAuth(app);
-    const [dateTasks, setDateTasks] = useState([]);
+    const [resultstr, setResult] = useState([]);
 
     const SignOut = () => {
         signOut(auth).then(() => {
             console.log("signout success")
         }).catch((error) => {
             console.log("signout fail")
+
         });
     }
 
@@ -38,13 +40,12 @@ const Home = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         alert(`Submitting task ${task}`)
-        const taskobj = { task };
         const datestring = date.toDateString()
 
         const docRef = doc(db, 'task', userid.toString());
 
         await updateDoc(docRef, {
-            [datestring]: arrayUnion(taskobj)
+            [datestring]: arrayUnion(task)
         });
 
         console.log({ docRef });
@@ -56,14 +57,24 @@ const Home = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            const taskarray = [docSnap.data(),date.toDateString()];
-            console.log(taskarray);
-            setDateTasks(taskarray);
-            console.log(dateTasks)
+            //taskarray is object with bunch of arrays
+            const taskObj = [docSnap.data()];
+
+            let strDate = date.toDateString();
+
+            const result = (taskObj[0][strDate])
+            let parsed = ""
+
+            for (var property in result) {
+                parsed += result[property] + ", ";
+            }
+            setResult(parsed)
+
         }
         else {
             console.log("no data");
         }
+
     }
 
     return (
@@ -117,7 +128,10 @@ const Home = () => {
                         <input type="submit" value="Reveal Task" />
                     </form>
 
-
+                    <h4>
+                        {""+resultstr+"\n"}
+                    </h4>
+                
 
                 </div>
                 <h2>
